@@ -1,0 +1,9 @@
+.banner-img {
+    background-image: url('/src/assets/bg-shadow.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Full viewport height */
+    width: 100%; /* Full width */
+}
+

@@ -1,0 +1,22 @@
+ul{
+    list-style: none;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    justify-items: center;
+}
+.header{
+    display: flex;
+    justify-content: space-between;
+}
+.header-item{
+    display: flex;
+    justify-content: center;
+    justify-items: center;
+    gap: 10px;
+}
+.coin{
+    border: 1px solid #EDEDED;
+   padding: 5px;
+   border-radius: 5px;
+}
