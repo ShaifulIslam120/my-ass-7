@@ -1,14 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types'; // Import PropTypes
+import PropTypes from 'prop-types'; 
 
-const SelectedPlayers = ({ selectedPlayers, setSelectedPlayers, setCoin, coin }) => {
+const SelectedPlayers = ({ selectedPlayers, setSelectedPlayers, setCoin, coin, onAddMorePlayers }) => {
     const handleDeletePlayer = (playerId, biddingPrice) => {
-        // Remove the player from the selectedPlayers array
         const updatedPlayers = selectedPlayers.filter(player => player.playerId !== playerId);
-        
-        // Refund the coins
         setSelectedPlayers(updatedPlayers);
-        setCoin(coin + Number(biddingPrice)); // Refund the bidding price
+        setCoin(coin + Number(biddingPrice)); 
     };
 
     return (
@@ -27,13 +24,21 @@ const SelectedPlayers = ({ selectedPlayers, setSelectedPlayers, setCoin, coin })
                             onClick={() => handleDeletePlayer(player.playerId, player.biddingPrice)}
                             className="btn btn-danger text-red-500 hover:bg-red-100 ml-4"
                         >
-                            Delete
+                           <img width="20" height="20" src="https://img.icons8.com/plasticine/100/filled-trash.png" alt="filled-trash"/>
                         </button>
                     </div>
                 ))
             ) : (
                 <p className="text-center col-span-full">No players selected yet.</p>
             )}
+            <div>
+                <button 
+                    className="btn bg-blue-500 text-white"
+                    onClick={onAddMorePlayers}
+                >
+                    Add More Players
+                </button>
+            </div>
         </div>
     );
 };
@@ -52,6 +57,7 @@ SelectedPlayers.propTypes = {
     setSelectedPlayers: PropTypes.func.isRequired,
     setCoin: PropTypes.func.isRequired,
     coin: PropTypes.number.isRequired,
+    onAddMorePlayers: PropTypes.func.isRequired, // PropType for the new function
 };
 
 export default SelectedPlayers;

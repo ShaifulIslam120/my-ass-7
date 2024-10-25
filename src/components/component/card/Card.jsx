@@ -1,4 +1,5 @@
 import React from 'react';
+import { toast } from 'react-toastify';
 
 const Card = ({ player, coin, setCoin, selectedPlayers, setSelectedPlayers }) => {
     const { playerId, name, country, image, role, biddingPrice } = player;
@@ -6,18 +7,17 @@ const Card = ({ player, coin, setCoin, selectedPlayers, setSelectedPlayers }) =>
     const handleChoosePlayer = () => {
         const price = Number(biddingPrice);
 
-        // Check if player is already selected
         if (selectedPlayers.some(selected => selected.playerId === playerId)) {
-            alert(`${name} has already been chosen.`);
+            toast.warn(`${name} has already been chosen.`); // Warning toast
             return;
         }
 
         if (coin >= price) {
             setCoin(coin - price);
-            setSelectedPlayers([...selectedPlayers, player]); // Save the whole player object
-            alert(`${name} has been chosen!`);
+            setSelectedPlayers([...selectedPlayers, player]);
+            toast.success(`${name} has been chosen!`); // Success toast
         } else {
-            alert("Not enough coins to choose this player.");
+            toast.error("Not enough coins to choose this player."); // Error toast
         }
     };
 
@@ -45,7 +45,7 @@ const Card = ({ player, coin, setCoin, selectedPlayers, setSelectedPlayers }) =>
                 <button 
                     className={`btn w-[135px] h-auto text-xs ${coin < biddingPrice ? 'bg-gray-400 cursor-not-allowed' : ''}`} 
                     onClick={handleChoosePlayer}
-                    disabled={coin < biddingPrice}  // Only disable if not enough coins
+                    disabled={coin < biddingPrice}  
                 >
                     {isChosen ? "Player Chosen" : "Choose Player"}
                 </button>
