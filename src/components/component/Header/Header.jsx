@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React from 'react';
 import './Header.css';
 
 const Header = ({ coin }) => {
@@ -13,7 +13,7 @@ const Header = ({ coin }) => {
           <li>Fixture</li>
           <li>Teams</li>
           <li>Schedules</li>
-          <li className='border border-solid border-slate-400 rounded-md p-1'>{coin} coin</li>
+          <li className='border border-solid border-slate-400 rounded-md p-1'>{coin} coins</li>
         </ul>
       </div>
     </div>

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Card from '../../card/Card';
-import SelectedPlayers from '/src/components/component/selectedplayer/SelectedPlayers ';
+import SelectedPlayers from '../../component/selectedplayer/SelectedPlayers ';
 
-const Cards = ({ coin, setCoin }) => {
+const Cards = ({ coin, setCoin, selectedPlayers, setSelectedPlayers }) => {
     const [cards, setCards] = useState([]);
-    const [activeButton, setActiveButton] = useState(1); // Default to available players
-    const [selectedPlayers, setSelectedPlayers] = useState([]);
+    const [activeButton, setActiveButton] = useState(1); // Default to show available players
 
     useEffect(() => {
         fetch('/public/players.json')
@@ -17,52 +16,46 @@ const Cards = ({ coin, setCoin }) => {
         setActiveButton(buttonId);
     };
 
-    const handleChoosePlayer = (player) => {
-        if (selectedPlayers.includes(player)) {
-            alert("Player already selected!");
-            return;
-        }
-
-        if (coin >= player.biddingPrice) {
-            setCoin(coin - player.biddingPrice);
-            setSelectedPlayers([...selectedPlayers, player]);
-        } else {
-            alert("Not enough coins!");
-        }
-    };
-
     return (
         <div>
             <div className='flex justify-between items-center'>
-                <h1>{activeButton === 1 ? "Available Players" : "Selected Players"}</h1>
+                <h1>{activeButton === 1 ? "Available Players" : `Selected Players (${selectedPlayers.length}/6)`}</h1>
                 <div className='flex space-x-1'>
                     <button
                         className={`btn ${activeButton === 1 ? 'bg-[#E7FE29]' : 'btn-active'}`}
                         onClick={() => handleButtonClick(1)}
                     >
-                       Available
+                        Available
                     </button>
                     <button
                         className={`btn ${activeButton === 2 ? 'bg-[#E7FE29]' : 'btn-active'}`}
                         onClick={() => handleButtonClick(2)}
                     >
-                        Selected
+                        Selected ({selectedPlayers.length}) 
                     </button>
                 </div>
             </div>
+            
             {activeButton === 1 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
                     {cards.map(player => (
                         <Card 
                             key={player.playerId} 
                             player={player} 
-                            showSummary={false} // Show full details for available players
-                            handleChoosePlayer={handleChoosePlayer}
+                            coin={coin} 
+                            setCoin={setCoin} 
+                            selectedPlayers={selectedPlayers}
+                            setSelectedPlayers={setSelectedPlayers}
                         />
                     ))}
                 </div>
             ) : (
-                <SelectedPlayers selectedPlayers={selectedPlayers} />
+                <SelectedPlayers 
+                    selectedPlayers={selectedPlayers} 
+                    setSelectedPlayers={setSelectedPlayers} 
+                    coin={coin} 
+                    setCoin={setCoin} 
+                />
             )}
         </div>
     );

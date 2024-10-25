@@ -6,7 +6,7 @@ import Cards from './components/component/cards/Cards';
 
 function App() {
   const [coin, setCoin] = useState(0);
-  const [selectedPlayers, setSelectedPlayers] = useState([]); // New state for selected players
+  const [selectedPlayers, setSelectedPlayers] = useState([]);
 
   const addCoins = () => {
     setCoin(coin + 600000);
@@ -16,7 +16,12 @@ function App() {
     <>
       <Header coin={coin} />
       <Banner addCoins={addCoins} />
-      <Cards coin={coin} setCoin={setCoin} selectedPlayers={selectedPlayers} setSelectedPlayers={setSelectedPlayers} />
+      <Cards 
+          coin={coin} 
+          setCoin={setCoin} 
+          selectedPlayers={selectedPlayers} 
+          setSelectedPlayers={setSelectedPlayers} 
+      />
     </>
   );
 }
